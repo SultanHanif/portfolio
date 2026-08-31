@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectItem from './ProjectItem.astro';
+import EditorialSection from './EditorialSection.astro';
+
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
+---
+
+<EditorialSection id="work" label="Selected Work" labelNumber="01">
+  <div class="space-y-1">
+    <div class="pb-2 flex justify-between items-center text-xs font-mono text-fg-muted dark:text-fg-dark-muted">
+      <span>FEATURED ARCHITECTURAL SYSTEMS</span>
+      <span>2024 — 2026</span>
+    </div>
+
+    <div class="border-t border-border-light dark:border-border-dark">
+      {
+        sortedProjects.map((project, idx) => (
+          <ProjectItem project={project} index={idx} />
+        ))
+      }
+    </div>
+  </div>
+</EditorialSection>

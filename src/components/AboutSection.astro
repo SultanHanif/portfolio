@@ -1,0 +1,39 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import EditorialSection from './EditorialSection.astro';
+---
+
+<EditorialSection id="about" label="About & Principles" labelNumber="04">
+  <div class="space-y-10">
+    <!-- Biography -->
+    <div class="space-y-4 max-w-2xl text-base text-fg-light/85 dark:text-fg-dark/85 leading-relaxed font-sans">
+      {
+        siteConfig.longBio.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))
+      }
+    </div>
+
+    <!-- Working Philosophy / Principles -->
+    <div class="pt-6 border-t border-border-light dark:border-border-dark space-y-6">
+      <h3 class="font-mono text-xs uppercase tracking-wider font-semibold text-fg-light dark:text-fg-dark">
+        Engineering Philosophy
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          siteConfig.philosophy.map((item) => (
+            <div class="space-y-2 p-4 bg-bg-subtle/50 dark:bg-bg-dark-subtle/50 border border-border-light dark:border-border-dark rounded-md">
+              <h4 class="font-medium text-sm text-fg-light dark:text-fg-dark">
+                {item.title}
+              </h4>
+              <p class="text-xs text-fg-muted dark:text-fg-dark-muted leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</EditorialSection>

@@ -1,0 +1,30 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import EditorialSection from './EditorialSection.astro';
+---
+
+<EditorialSection id="skills" label="Skills & Domains" labelNumber="03">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
+    {
+      siteConfig.skills.map((category) => (
+        <div class="space-y-2.5">
+          <h3 class="font-mono text-xs uppercase tracking-wider font-semibold text-fg-light dark:text-fg-dark">
+            {category.category}
+          </h3>
+          <p class="text-sm text-fg-muted dark:text-fg-dark-muted leading-relaxed font-sans">
+            {category.items.map((skill, idx) => (
+              <span>
+                <span class="text-fg-light/90 dark:text-fg-dark/90 hover:text-accent-highlight transition-colors">
+                  {skill}
+                </span>
+                {idx < category.items.length - 1 && (
+                  <span class="mx-1.5 text-border-light dark:text-border-dark select-none">•</span>
+                )}
+              </span>
+            ))}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</EditorialSection>

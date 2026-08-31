@@ -1,0 +1,128 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import ThemeToggle from './ThemeToggle.astro';
+
+const navLinks = [
+  { name: 'Work', href: '/#work' },
+  { name: 'Experience', href: '/#experience' },
+  { name: 'Skills', href: '/#skills' },
+  { name: 'About', href: '/#about' },
+  { name: 'Contact', href: '/#contact' },
+];
+---
+
+<header class="sticky top-0 z-50 w-full backdrop-blur-md bg-bg-light/85 dark:bg-bg-dark/85 border-b border-border-light dark:border-border-dark transition-colors duration-200">
+  <div class="max-w-editorial mx-auto px-6 sm:px-8 md:px-12 h-14 md:h-16 flex items-center justify-between">
+    <!-- Brand / Name -->
+    <a
+      href="/"
+      class="font-mono text-sm tracking-tight font-medium text-fg-light dark:text-fg-dark hover:opacity-75 transition-opacity"
+      aria-label="Back to home"
+    >
+      {siteConfig.name.toUpperCase()}
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-7 text-sm font-sans" aria-label="Main Navigation">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-fg-muted hover:text-fg-light dark:text-fg-dark-muted dark:hover:text-fg-dark transition-colors duration-150 editorial-link"
+          >
+            {link.name}
+          </a>
+        ))
+      }
+
+      <div class="h-3.5 w-[1px] bg-border-light dark:bg-border-dark mx-1" aria-hidden="true" />
+
+      <!-- CV Link Button -->
+      <a
+        href="/cv"
+        class="inline-flex items-center gap-1 px-3 py-1 text-xs font-mono border border-border-light dark:border-border-dark rounded hover:bg-bg-subtle dark:hover:bg-bg-dark-subtle transition-colors duration-150 text-fg-light dark:text-fg-dark"
+      >
+        <span>CV</span>
+        <span class="text-[10px]" aria-hidden="true">↗</span>
+      </a>
+
+      <!-- Theme Switcher -->
+      <ThemeToggle />
+    </nav>
+
+    <!-- Mobile Navigation Toggle -->
+    <div class="flex items-center gap-2 md:hidden">
+      <ThemeToggle />
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="p-2 text-xs font-mono tracking-wider border border-border-light dark:border-border-dark rounded text-fg-light dark:text-fg-dark hover:bg-bg-subtle dark:hover:bg-bg-dark-subtle transition-colors"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open Navigation Menu"
+      >
+        <span id="menu-btn-text">MENU</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-b border-border-light dark:border-border-dark bg-bg-light dark:bg-bg-dark px-6 py-5"
+  >
+    <nav class="flex flex-col space-y-4 text-sm" aria-label="Mobile Navigation">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="mobile-nav-link text-fg-muted hover:text-fg-light dark:text-fg-dark-muted dark:hover:text-fg-dark transition-colors py-1"
+          >
+            {link.name}
+          </a>
+        ))
+      }
+      <div class="pt-2 border-t border-border-light dark:border-border-dark flex items-center justify-between">
+        <a
+          href="/cv"
+          class="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 border border-border-light dark:border-border-dark rounded text-fg-light dark:text-fg-dark hover:bg-bg-subtle dark:hover:bg-bg-dark-subtle"
+        >
+          <span>Curriculum Vitae</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function setupMobileMenu() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const btnText = document.getElementById('menu-btn-text');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (!menuBtn || !menu || !btnText) return;
+
+    function toggleMenu() {
+      if (!menuBtn || !menu || !btnText) return;
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+      menu.classList.toggle('hidden');
+      btnText.textContent = isExpanded ? 'MENU' : 'CLOSE';
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        if (!menu.classList.contains('hidden')) {
+          toggleMenu();
+        }
+      });
+    });
+  }
+
+  setupMobileMenu();
+  document.addEventListener('astro:after-swap', setupMobileMenu);
+</script>

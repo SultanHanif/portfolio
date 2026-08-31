@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'Geist Mono', Menlo, Monaco, Consolas, monospace;
+
+  --color-bg: #FAFAFA;
+  --color-bg-subtle: #F4F4F5;
+  --color-fg: #111111;
+  --color-muted: #71717A;
+  --color-border: #E4E4E7;
+  --color-border-subtle: #F0F0F2;
+  --color-accent: #18181B;
+}
+
+.dark {
+  --color-bg: #09090B;
+  --color-bg-subtle: #121215;
+  --color-fg: #F4F4F5;
+  --color-muted: #A1A1AA;
+  --color-border: #27272A;
+  --color-border-subtle: #18181B;
+  --color-accent: #FAFAFA;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #18181B;
+  color: #FAFAFA;
+}
+
+.dark ::selection {
+  background-color: #F4F4F5;
+  color: #09090B;
+}
+
+/* Editorial line rules and borders */
+.editorial-border-b {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.editorial-border-t {
+  border-top: 1px solid var(--color-border);
+}
+
+.editorial-border-r {
+  border-right: 1px solid var(--color-border);
+}
+
+/* Interactive underline animation */
+.editorial-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  transition: color 150ms ease;
+}
+
+.editorial-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 200ms ease;
+}
+
+.editorial-link:hover::after {
+  width: 100%;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Stylesheet for /cv and overall site printing */
+@media print {
+  @page {
+    margin: 1.2cm 1.5cm;
+    size: auto;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .no-print,
+  nav,
+  footer,
+  #theme-toggle,
+  .print-hide {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+
+  .print-show {
+    display: block !important;
+  }
+
+  .editorial-border-b,
+  .editorial-border-t {
+    border-color: #d1d5db !important;
+  }
+
+  .page-break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

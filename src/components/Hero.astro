@@ -1,0 +1,71 @@
+---
+import { siteConfig } from '../data/siteConfig';
+---
+
+<section class="pt-6 pb-12 md:pt-10 md:pb-16 min-h-[480px] md:min-h-[540px] flex flex-col justify-center">
+  <div class="space-y-6 md:space-y-8">
+    <!-- Intro Small Prehead -->
+    <div class="flex items-center gap-3">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
+      <span class="font-mono text-xs tracking-widest uppercase text-fg-muted dark:text-fg-dark-muted">
+        Available for Select Architectural & Advisory Roles
+      </span>
+    </div>
+
+    <!-- Main Editorial Headline -->
+    <div class="space-y-3">
+      <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-[5rem] font-serif font-normal tracking-tight leading-[1.04] text-fg-light dark:text-fg-dark">
+        {siteConfig.name}
+      </h1>
+      
+      <p class="text-lg sm:text-xl md:text-2xl font-sans font-normal text-fg-muted dark:text-fg-dark-muted max-w-2xl leading-snug">
+        {siteConfig.role} <span class="text-fg-light/80 dark:text-fg-dark/80">building thoughtful digital products and scalable web systems.</span>
+      </p>
+    </div>
+
+    <!-- Location & Metadata -->
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono text-fg-muted dark:text-fg-dark-muted">
+      <div class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>{siteConfig.location}</span>
+      </div>
+      <span class="text-border-light dark:text-border-dark">•</span>
+      <div>
+        <span>UTC+7 (WIB)</span>
+      </div>
+      <span class="text-border-light dark:text-border-dark">•</span>
+      <div>
+        <span>8+ Years Experience</span>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="pt-2 flex flex-wrap items-center gap-3 sm:gap-4 font-mono text-xs">
+      <a
+        href="#work"
+        class="inline-flex items-center gap-2 px-4 py-2.5 bg-fg-light text-bg-light dark:bg-fg-dark dark:text-bg-dark rounded font-medium hover:opacity-90 transition-opacity"
+      >
+        <span>View Selected Work</span>
+        <span aria-hidden="true">↓</span>
+      </a>
+
+      <a
+        href="/cv"
+        class="inline-flex items-center gap-2 px-4 py-2.5 border border-border-light dark:border-border-dark rounded hover:bg-bg-subtle dark:hover:bg-bg-dark-subtle transition-colors text-fg-light dark:text-fg-dark"
+      >
+        <span>Curriculum Vitae</span>
+        <span class="text-[11px]" aria-hidden="true">↗</span>
+      </a>
+
+      <a
+        href="mailto:alexander@vane.dev"
+        class="inline-flex items-center gap-2 px-4 py-2.5 text-fg-muted hover:text-fg-light dark:text-fg-dark-muted dark:hover:text-fg-dark transition-colors editorial-link"
+      >
+        <span>alexander@vane.dev</span>
+      </a>
+    </div>
+  </div>
+</section>

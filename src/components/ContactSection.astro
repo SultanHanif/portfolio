@@ -1,0 +1,84 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import EditorialSection from './EditorialSection.astro';
+---
+
+<EditorialSection id="contact" label="Contact & Inquiry" labelNumber="07">
+  <div class="space-y-6 max-w-xl">
+    <div class="space-y-2">
+      <h3 class="text-2xl sm:text-3xl font-serif text-fg-light dark:text-fg-dark font-normal">
+        Let's work together.
+      </h3>
+      <p class="text-sm sm:text-base text-fg-muted dark:text-fg-dark-muted leading-relaxed">
+        Have an upcoming product initiative, high-throughput system architecture challenge, or advisory opportunity? Feel free to reach out directly.
+      </p>
+    </div>
+
+    <!-- Email CTA Box -->
+    <div class="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+      <a
+        href={`mailto:${siteConfig.email}`}
+        class="inline-flex items-center gap-2 px-5 py-3 bg-fg-light text-bg-light dark:bg-fg-dark dark:text-bg-dark rounded font-mono text-xs font-medium hover:opacity-90 transition-opacity"
+      >
+        <span>{siteConfig.email}</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+
+      <button
+        id="copy-email-btn"
+        type="button"
+        data-email={siteConfig.email}
+        class="px-4 py-3 border border-border-light dark:border-border-dark rounded font-mono text-xs text-fg-muted hover:text-fg-light dark:text-fg-dark-muted dark:hover:text-fg-dark hover:bg-bg-subtle dark:hover:bg-bg-dark-subtle transition-colors"
+      >
+        <span id="copy-btn-text">Copy Address</span>
+      </button>
+    </div>
+
+    <!-- Social Channels -->
+    <div class="pt-4 flex flex-wrap items-center gap-6 text-xs font-mono text-fg-muted dark:text-fg-dark-muted">
+      {
+        siteConfig.socials.map((social) => (
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-fg-light dark:hover:text-fg-dark transition-colors editorial-link"
+          >
+            <span>{social.name}</span>
+            <span class="text-[10px] ml-0.5" aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</EditorialSection>
+
+<script>
+  function setupCopyEmail() {
+    const copyBtn = document.getElementById('copy-email-btn');
+    const copyText = document.getElementById('copy-btn-text');
+    if (!copyBtn || !copyText) return;
+
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email');
+      if (!email) return;
+
+      try {
+        await navigator.clipboard.writeText(email);
+        copyText.textContent = 'Copied to Clipboard!';
+        setTimeout(() => {
+          copyText.textContent = 'Copy Address';
+        }, 2000);
+      } catch (err) {
+        // Fallback
+        copyText.textContent = 'Copied!';
+        setTimeout(() => {
+          copyText.textContent = 'Copy Address';
+        }, 2000);
+      }
+    });
+  }
+
+  setupCopyEmail();
+  document.addEventListener('astro:after-swap', setupCopyEmail);
+</script>

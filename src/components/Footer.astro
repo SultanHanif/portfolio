@@ -1,0 +1,37 @@
+---
+import { siteConfig } from '../data/siteConfig';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full border-t border-border-light dark:border-border-dark py-10 md:py-14 text-xs font-mono text-fg-muted dark:text-fg-dark-muted transition-colors duration-200">
+  <div class="max-w-editorial mx-auto px-6 sm:px-8 md:px-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+    <!-- Left: Identity & Tech -->
+    <div class="space-y-1">
+      <p class="text-fg-light dark:text-fg-dark font-medium uppercase tracking-wider">
+        {siteConfig.name}
+      </p>
+      <p class="text-[11px] text-fg-muted/80 dark:text-fg-dark-muted/80">
+        Built with Astro & TypeScript · Optimized for Vercel CDN
+      </p>
+    </div>
+
+    <!-- Center/Right: Quick Links & Year -->
+    <div class="flex flex-wrap items-center gap-6">
+      {
+        siteConfig.socials.map((social) => (
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-fg-light dark:hover:text-fg-dark transition-colors editorial-link"
+          >
+            {social.name}
+          </a>
+        ))
+      }
+      <span class="text-border-light dark:text-border-dark hidden sm:inline">•</span>
+      <span>&copy; {currentYear}</span>
+    </div>
+  </div>
+</footer>

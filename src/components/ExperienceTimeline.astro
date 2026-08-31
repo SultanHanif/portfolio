@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import EditorialSection from './EditorialSection.astro';
+
+const allExperience = await getCollection('experience');
+const sortedExperience = allExperience.sort((a, b) => a.data.order - b.data.order);
+---
+
+<EditorialSection id="experience" label="Experience" labelNumber="02">
+  <div class="space-y-10 md:space-y-12">
+    {
+      sortedExperience.map((item, idx) => (
+        <div class={`space-y-4 ${idx !== 0 ? 'pt-8 md:pt-10 border-t border-border-light dark:border-border-dark' : ''}`}>
+          <!-- Role & Period Header -->
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+            <div>
+              <h3 class="text-base sm:text-lg font-medium text-fg-light dark:text-fg-dark">
+                {item.data.role}
+              </h3>
+              <div class="text-sm text-fg-muted dark:text-fg-dark-muted flex items-center gap-2">
+                <span class="font-medium text-fg-light/80 dark:text-fg-dark/80">{item.data.company}</span>
+                {item.data.location && (
+                  <>
+                    <span class="text-xs text-border-light dark:text-border-dark">•</span>
+                    <span class="text-xs">{item.data.location}</span>
+                  </>
+                )}
+              </div>
+            </div>
+            
+            <div class="font-mono text-xs text-fg-muted dark:text-fg-dark-muted shrink-0 mt-1 sm:mt-0">
+              {item.data.period}
+            </div>
+          </div>
+
+          <!-- Achievements Bullet List -->
+          <ul class="space-y-2 text-sm text-fg-light/85 dark:text-fg-dark/85 list-none pl-0">
+            {item.data.achievements.map((achievement) => (
+              <li class="relative pl-5 leading-relaxed before:content-['—'] before:absolute before:left-0 before:text-fg-muted dark:before:text-fg-dark-muted before:font-mono">
+                {achievement}
+              </li>
+            ))}
+          </ul>
+
+          <!-- Tech stack tags for role -->
+          {item.data.skills && item.data.skills.length > 0 && (
+            <div class="pt-1 flex flex-wrap gap-1.5 font-mono text-[11px] text-fg-muted dark:text-fg-dark-muted">
+              {item.data.skills.map((skill) => (
+                <span class="px-2 py-0.5 border border-border-light dark:border-border-dark rounded-sm">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</EditorialSection>

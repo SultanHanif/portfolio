@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import EditorialSection from './EditorialSection.astro';
+
+const allCerts = await getCollection('certifications');
+const sortedCerts = allCerts.sort((a, b) => a.data.order - b.data.order);
+---
+
+<EditorialSection id="certifications" label="Certifications" labelNumber="06">
+  <div class="space-y-4">
+    {
+      sortedCerts.map((cert) => (
+        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 py-1">
+          <div class="flex items-baseline gap-2">
+            <span class="text-sm font-medium text-fg-light dark:text-fg-dark">
+              {cert.data.title}
+            </span>
+            <span class="text-xs text-fg-muted dark:text-fg-dark-muted">
+              ({cert.data.issuer})
+            </span>
+          </div>
+          <div class="font-mono text-xs text-fg-muted dark:text-fg-dark-muted shrink-0">
+            {cert.data.issueDate}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</EditorialSection>

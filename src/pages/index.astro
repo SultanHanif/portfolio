@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import PersonalStatement from '../components/PersonalStatement.astro';
+import ProjectList from '../components/ProjectList.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+import SkillsGrid from '../components/SkillsGrid.astro';
+import AboutSection from '../components/AboutSection.astro';
+import EducationSection from '../components/EducationSection.astro';
+import CertificationsSection from '../components/CertificationsSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { siteConfig } from '../data/siteConfig';
+---
+
+<Layout
+  title={`${siteConfig.name} — ${siteConfig.role}`}
+  description={siteConfig.statement}
+>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Personal Statement -->
+  <PersonalStatement />
+
+  <!-- 01 Selected Work -->
+  <ProjectList />
+
+  <!-- 02 Experience -->
+  <ExperienceTimeline />
+
+  <!-- 03 Skills -->
+  <SkillsGrid />
+
+  <!-- 04 About & Principles -->
+  <AboutSection />
+
+  <!-- 05 Education -->
+  <EducationSection />
+
+  <!-- 06 Certifications -->
+  <CertificationsSection />
+
+  <!-- 07 Contact -->
+  <ContactSection />
+</Layout>

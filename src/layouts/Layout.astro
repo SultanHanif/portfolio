@@ -1,0 +1,47 @@
+---
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  hideNav?: boolean;
+  hideFooter?: boolean;
+}
+
+const { title, description, image, article, hideNav = false, hideFooter = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <SEO title={title} description={description} image={image} article={article} />
+    
+    <!-- Instant theme sync to prevent FOUC -->
+    <script is:inline>
+      (function () {
+        const storedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-bg-light text-fg-light dark:bg-bg-dark dark:text-fg-dark selection:bg-fg-light selection:text-bg-light dark:selection:bg-fg-dark dark:selection:text-bg-dark min-h-screen flex flex-col font-sans transition-colors duration-200">
+    {!hideNav && <Navbar />}
+
+    <main class="flex-grow w-full max-w-editorial mx-auto px-6 sm:px-8 md:px-12 py-8 md:py-12">
+      <slot />
+    </main>
+
+    {!hideFooter && <Footer />}
+  </body>
+</html>
